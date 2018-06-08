@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class FizzBuzzLogic {
@@ -11,6 +12,7 @@ public class FizzBuzzLogic {
     private int upperLimit;
     private int randomNumber1;
     private int randomNumber2;
+    private int index = 0;
 
     /* No-arg constructor that initializes the data fields
      * with randomized values */
@@ -30,8 +32,9 @@ public class FizzBuzzLogic {
      * according to whether the passed integer is multiple of 3, 5, and 7.
      * Also, whether the number is multiple of both 3 and 5 is tested. */
     public String testMultiples(int num) {
+
         if (num % 3 == 0 && num % 5 == 0) {
-            return "Fizz Buzz"; // Return "Fizz Buzz" when multiple of both 3 and 5
+            return "FizzBuzz"; // Return "Fizz Buzz" when multiple of both 3 and 5
         } else if (num % 3 == 0) {
             return "Fizz"; // Return "Fizz" when multiple of 3
         } else if (num % 5 == 0) {
@@ -64,6 +67,9 @@ public class FizzBuzzLogic {
         // Create StringBuilder object to create the program output
         StringBuilder sb = new StringBuilder();
 
+        String[] rockPaperScissorGame = {" - Rock", " - Paper"
+                , " - Scissors", " - Lizard", " - Spock"};
+
         /* Before showing the FizzBuzz result, add "This won't take long...\n"
             if both lowerLimit and upperLimit are less than 10 */
         if (lowerLimit < 10  && upperLimit < 10)
@@ -71,7 +77,21 @@ public class FizzBuzzLogic {
 
         /* Add the FizzBuzz result to the StringBuilder object inside a for loop */
         for (int num = lowerLimit; num <= upperLimit; num++) {
-            sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit) + "\n");
+            // If the number is even and greater than ten, add an alternating extension
+            if (num % 2 == 0 && num > 10) {
+                if (index == 4)
+                    /* If private data field index hits 4, reset to zero
+                     to avoid ArrayIndexOutOfBoundsException */
+                    index = 0;
+                else
+                    /* Otherwise, increase to acess all elements
+                        in the String array rockPaperScissorGame */
+                    index++;
+
+                sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit)
+                        + rockPaperScissorGame[index] + "\n");
+            } else
+                sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit) + "\n");
         }
         // Return the FizzBuzz result in the String format
         return sb.toString();
