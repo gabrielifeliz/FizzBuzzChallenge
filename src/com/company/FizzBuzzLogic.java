@@ -4,54 +4,76 @@ import java.util.Random;
 
 public class FizzBuzzLogic {
 
+    // Declare private data fields
+    /* These data fields are initialized in the no-arg constructor
+        through an object from the FizzBuzzChallenge class */
     private int lowerLimit;
-
     private int upperLimit;
+    private int randomNumber1;
+    private int randomNumber2;
 
-    private int random1;
-
-    private int random2;
-
-
+    /* No-arg constructor that initializes the data fields
+     * with randomized values */
     public FizzBuzzLogic() {
+        // Create Random object to generate random numbers
         Random random = new Random();
-        random1 = 1 + random.nextInt(99);
-        random2 = 1 + random.nextInt(99);
-        upperLimit = (random2 < random1) ? random1 : random2;
-        lowerLimit = (random2 < random1) ? random2 : random1;
+        // Initialize randomNumber1 and randomNumber2 to random numbers individually
+        randomNumber1 = 1 + random.nextInt(99);
+        randomNumber2 = 1 + random.nextInt(99);
+        // Initialize upperLimit to the greatest of randomNumber1 and randomNumber2
+        upperLimit = (randomNumber2 < randomNumber1) ? randomNumber1 : randomNumber2;
+        // Initialize lowerLimit to the least of randomNumber1 and randomNumber2
+        lowerLimit = (randomNumber2 < randomNumber1) ? randomNumber2 : randomNumber1;
     }
 
-    public String displayFuzzBuzz() {
-        StringBuilder sb = new StringBuilder();
-
-        if (lowerLimit < 10  && upperLimit < 10)
-            sb.append("This won't take long...\n");
-
-        for (int num = lowerLimit; num <= upperLimit; num++) {
-            sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit) + "\n");
-        }
-        return sb.toString();
+    /* This method is responsible for returning a certain message
+     * according to whether the passed integer is multiple of 3, 5, and 7.
+     * Also, whether the number is multiple of both 3 and 5 is tested. */
+    public String testMultiples(int num) {
+        if (num % 3 == 0 && num % 5 == 0) {
+            return "Fizz Buzz"; // Return "Fizz Buzz" when multiple of both 3 and 5
+        } else if (num % 3 == 0) {
+            return "Fizz"; // Return "Fizz" when multiple of 3
+        } else if (num % 5 == 0) {
+            return "Buzz"; // Return "Buzz" when multiple of 5
+        }  else if (num % 7 == 0) {
+            // Return number with " - multiply of seven" when multiple of 7
+            return Integer.toString(num) + " - multiple of seven";
+        } else
+            // Return number if none of the conditions above are met
+            return Integer.toString(num);
     }
 
+    /* This method is responsible for returning a certain message
+     * according to whether the passed integer is multiple of 3, 5, and 7.
+     * Also, whether the number is multiple of both 3 and 5 is tested. */
     public String fizzBuzzShazam(int num, int lowerLimit, int upperLimit) {
 
         if (lowerLimit != upperLimit) {
+            // Call and return testMultiples if lowerLimit does not equal to upperLimit
             return testMultiples(num);
         } else {
+            // Don't bother calling testMultiples and return
             return "Shazam!!";
         }
     }
 
-    public String testMultiples(int num) {
-        if (num % 3 == 0 && num % 5 == 0)
-            return "Fizz Buzz";
-        else if (num % 5 == 0)
-            return "Buzz";
-        else if (num % 3 == 0)
-            return "Fizz";
-        else if (num % 7 == 0)
-            return Integer.toString(num) + " - multiple of seven";
-        else
-            return Integer.toString(num);
+    /* This method is responsible for creating the output
+     * and display the result of program when called */
+    public String displayFuzzBuzz() {
+        // Create StringBuilder object to create the program output
+        StringBuilder sb = new StringBuilder();
+
+        /* Before showing the FizzBuzz result, add "This won't take long...\n"
+            if both lowerLimit and upperLimit are less than 10 */
+        if (lowerLimit < 10  && upperLimit < 10)
+            sb.append("This won't take long...\n");
+
+        /* Add the FizzBuzz result to the StringBuilder object inside a for loop */
+        for (int num = lowerLimit; num <= upperLimit; num++) {
+            sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit) + "\n");
+        }
+        // Return the FizzBuzz result in the String format
+        return sb.toString();
     }
 }
