@@ -1,8 +1,5 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class FizzBuzzLogic {
 
     // Declare private data fields
@@ -17,11 +14,9 @@ public class FizzBuzzLogic {
     /* No-arg constructor that initializes the data fields
      * with randomized values */
     public FizzBuzzLogic() {
-        // Create Random object to generate random numbers
-        Random random = new Random();
         // Initialize randomNumber1 and randomNumber2 to random numbers individually
-        randomNumber1 = 1 + random.nextInt(99);
-        randomNumber2 = 1 + random.nextInt(99);
+        randomNumber1 = (int)(1 + Math.random()  * 100);
+        randomNumber2 = (int)(1 + Math.random()  * 100);
         // Initialize upperLimit to the greatest of randomNumber1 and randomNumber2
         upperLimit = (randomNumber2 < randomNumber1) ? randomNumber1 : randomNumber2;
         // Initialize lowerLimit to the least of randomNumber1 and randomNumber2
@@ -41,7 +36,7 @@ public class FizzBuzzLogic {
             return "Buzz"; // Return "Buzz" when multiple of 5
         }  else if (num % 7 == 0) {
             if (num % 2 == 0) {
-                // Return number with " - multiply of seven" when multiple of 7 and 2
+                // Return number without " - multiply of seven" when multiple of 7 and 2
                 return Integer.toString(num);
             } else {
                 // Return number with " - multiply of seven" when multiple of 7 but not of 2
@@ -50,20 +45,6 @@ public class FizzBuzzLogic {
         } else
             // Return number if none of the conditions above are met
             return Integer.toString(num);
-    }
-
-    /* This method is responsible for returning a certain message
-     * according to whether the passed integer is multiple of 3, 5, and 7.
-     * Also, whether the number is multiple of both 3 and 5 is tested. */
-    public String fizzBuzzShazam(int num, int lowerLimit, int upperLimit) {
-
-        if (lowerLimit != upperLimit) {
-            // Call and return testMultiples if lowerLimit does not equal to upperLimit
-            return testMultiples(num);
-        } else {
-            // Don't bother calling testMultiples and return
-            return "Shazam!!";
-        }
     }
 
     /* This method is responsible for creating the output
@@ -83,21 +64,28 @@ public class FizzBuzzLogic {
         /* Add the FizzBuzz result to the StringBuilder object inside a for loop */
         for (int num = lowerLimit; num <= upperLimit; num++) {
             // If the number is even and greater than ten, add an alternating extension
-            if (num % 2 == 0 && num > 10) {
-                if (index == 4)
-                    /* If private data field index hits 4, reset to zero
-                     to avoid ArrayIndexOutOfBoundsException */
-                    index = 0;
-                else
-                    /* Otherwise, increase to acess all elements
-                        in the String array rockPaperScissorGame */
-                    index++;
+            if (lowerLimit == upperLimit) {
+                // Display "Shazam!!" if lowerLimit does not equal to upperLimit
+            	return "Shazam!!";
+            	
+            } else {
+            	// Otherwise process the FizzBuzz result
+            	if (num % 2 == 0 && num > 10) {
+                    if (index == 4)
+                        /* If private data field index hits 4, reset to zero
+                         to avoid ArrayIndexOutOfBoundsException */
+                        index = 0;
+                    else
+                        /* Otherwise, increase to access all elements
+                            in the String array rockPaperScissorGame */
+                        index++;
 
-                sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit)
-                        + rockPaperScissorGame[index] + "\n");
-            } else
-                // Otherwise, don't add the extension
-                sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit) + "\n");
+                    sb.append(testMultiples(num) + rockPaperScissorGame[index] + "\n");
+                } else {
+                    // Otherwise, don't add the extension
+                    sb.append(testMultiples(num) + "\n");
+                }
+            }
         }
         // Return the FizzBuzz result in the String format
         return sb.toString();
