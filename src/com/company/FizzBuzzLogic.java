@@ -40,8 +40,13 @@ public class FizzBuzzLogic {
         } else if (num % 5 == 0) {
             return "Buzz"; // Return "Buzz" when multiple of 5
         }  else if (num % 7 == 0) {
-            // Return number with " - multiply of seven" when multiple of 7
-            return Integer.toString(num) + " - multiple of seven";
+            if (num % 2 == 0) {
+                // Return number with " - multiply of seven" when multiple of 7 and 2
+                return Integer.toString(num);
+            } else {
+                // Return number with " - multiply of seven" when multiple of 7 but not of 2
+                return Integer.toString(num) + " - multiple of seven";
+            }
         } else
             // Return number if none of the conditions above are met
             return Integer.toString(num);
@@ -91,6 +96,7 @@ public class FizzBuzzLogic {
                 sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit)
                         + rockPaperScissorGame[index] + "\n");
             } else
+                // Otherwise, don't add the extension
                 sb.append(fizzBuzzShazam(num, lowerLimit, upperLimit) + "\n");
         }
         // Return the FizzBuzz result in the String format
